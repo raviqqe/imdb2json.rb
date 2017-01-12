@@ -2,5 +2,10 @@ dist: trusty
 
 language: ruby
 
+addons:
+  apt:
+    packages:
+      - python3
+
 script:
-  - rake dataset
+  - rake

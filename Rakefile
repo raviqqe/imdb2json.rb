@@ -1,14 +1,13 @@
 require 'rake/clean'
 
 
-IMDB_TAR = 'aclImdb_v1.tar.gz'
-DATASET_FILE = "#{__dir__}/#{IMDB_TAR}"
-DATASET_DIR = (ENV['dataset_dir'] or "#{__dir__}/aclImdb")
+DATASET_FILE = 'aclImdb_v1.tar.gz'
+DATASET_DIR = "aclImdb"
+JSON_DATASET_DIR = (ENV['dest_dir'] or 'aclImdb.json')
 
 
 file DATASET_FILE do |t|
-  mkdir_p File.dirname(t.name)
-  sh "wget -O #{t.name} http://ai.stanford.edu/~amaas/data/sentiment/#{IMDB_TAR}"
+  sh "wget http://ai.stanford.edu/~amaas/data/sentiment/#{t.name}"
 end
 
 directory DATASET_DIR => DATASET_FILE do |t|
@@ -16,7 +15,13 @@ directory DATASET_DIR => DATASET_FILE do |t|
   sh "tar -C #{File.dirname t.name} -xf #{t.source}"
 end
 
-task :dataset => DATASET_DIR
+
+directory JSON_DATASET_DIR => DATASET_DIR do |t|
+  sh "python3 bin/imdb2json.py #{t.source} #{t.name}"
+end
+
+
+task :default => JSON_DATASET_DIR
 
 
 CLEAN.include Dir.glob(['aclImdb', '*.gz'])
