@@ -23,7 +23,7 @@ end
 
 
 directory JSON_DATASET_DIR => DATASET_DIR do |t|
-  sh "python3 -m venv #{VENV_DIR}"
+  sh "rm -rf #{VENV_DIR}; python3 -m venv #{VENV_DIR}"
   vsh 'pip3 install --upgrade nltokeniz gargparse mecab-python3'
   vsh 'python3 -m nltk.downloader punkt'
   vsh "python3 bin/imdb2json.py #{t.source} #{t.name}"
