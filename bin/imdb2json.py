@@ -6,6 +6,8 @@ import os
 import os.path
 import re
 
+import nltokeniz
+
 
 POS = 'pos'
 NEG = 'neg'
@@ -33,7 +35,7 @@ def convert_file(filename):
     with open(filename) as phile:
         return {
             'filename': filename,
-            'document': phile.read().split(),
+            'document': nltokeniz.tokenize(phile.read()),
             'label': {
                 'binary': 1 if binary_class == POS else 0,
                 'multi': int(re.search(r'_([0-9]+)\.txt$', filename).group(1)),

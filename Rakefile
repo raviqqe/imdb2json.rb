@@ -17,6 +17,7 @@ end
 
 
 directory JSON_DATASET_DIR => DATASET_DIR do |t|
+  sh 'pip3 install --user --upgrade nltokeniz'
   sh "python3 bin/imdb2json.py #{t.source} #{t.name}"
 end
 
