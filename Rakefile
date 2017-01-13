@@ -25,3 +25,4 @@ task :default => JSON_DATASET_DIR
 
 
 CLEAN.include Dir.glob(['aclImdb', '*.gz'])
+CLOBBER.include Dir.glob('aclImdb.json')
