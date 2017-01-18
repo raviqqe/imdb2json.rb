@@ -13,4 +13,4 @@ install:
   - brew install mecab mecab-ipadic
 
 script:
-  - LD_LIBRARY_PATH="$HOME/.linuxbrew/lib" rake
+  - LD_LIBRARY_PATH="$HOME/.linuxbrew/lib" travis_wait rake
